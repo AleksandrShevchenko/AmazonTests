@@ -1,0 +1,14 @@
+
+P
+java:S1191"5Use classes from the Java API instead of Sun classes.(™¦èûÿÿÿÿ
+a
+java:S1192G"FDefine a constant instead of duplicating this literal "value" 3 times.(¦¼ã¦þÿÿÿÿ
+2
+java:S1643R"Use a StringBuilder instead.(‹‘€ð
+7
+java:S1643_"Use a StringBuilder instead.(Ê ãåþÿÿÿÿ
+2
+java:S1643g"Use a StringBuilder instead.(‡þÆ®
+i
+java:S1128"NRemove this unused import 'com.sun.org.apache.xpath.internal.operations.Bool'.(™¦èûÿÿÿÿ
+>	java:S1087")Either remove or fill this block of code.(¯å¯·

@@ -1,0 +1,13 @@
+
+?
+java:S5411D"*Use the primitive boolean expression here.(»û¶4
+l
+java:S1450"VRemove the "matcher" field and declare it as a local variable in the relevant methods.(¥½³Ú
+b
+java:S5998X"LRefactor this repetition that can lead to a stack overflow for large inputs.(×ÓÕ­
+Œ
+java:S1130C"wRemove the declaration of thrown exception 'java.lang.InterruptedException', as it cannot be thrown from method's body.(Ìå\
+E
+java:S1172M"/Remove this unused method parameter "password".(Ë‚÷
+
+java:S1130M"wRemove the declaration of thrown exception 'java.lang.InterruptedException', as it cannot be thrown from method's body.(Ë‚÷

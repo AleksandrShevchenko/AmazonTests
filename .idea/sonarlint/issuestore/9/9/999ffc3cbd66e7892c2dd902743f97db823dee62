@@ -1,0 +1,16 @@
+
+H
+java:S1199F"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ
+E
+java:S1066?"/Merge this if statement with the enclosing one.(Ëù§Â
+J
+java:S1066M"/Merge this if statement with the enclosing one.(à’ûÿÿÿÿ
+O
+java:S49737"9Use the "equals" method if value comparison was intended.(ŸªÜá
+N
+java:S4973D"9Use the "equals" method if value comparison was intended.(Ìâ}
+O
+java:S4973S"9Use the "equals" method if value comparison was intended.(”ú­«
+m
+java:S37765"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(ÿñŠÏşÿÿÿÿ
+C	java:S108T")Either remove or fill this block of code.(ÒÌâ–øÿÿÿÿ
