@@ -27,7 +27,6 @@ public class CartPage extends BasePage
 
     @FindBy(xpath = "//input[@name=\"quantityBox\"]")
     private WebElement quantityInputField;
-    public WebElement getQuantityInputField(){return quantityInputField;}
 
     @FindBy(xpath = "//span[@class=\"a-button a-button-primary a-button-small sc-update-link\"]")
     private WebElement updateButton;
@@ -40,37 +39,50 @@ public class CartPage extends BasePage
 
     @FindBy(xpath = "//span[contains(text(),\"This seller has only\")]")
     private WebElement quantityAlertMessage;
-    public WebElement getQuantityAlertMessage() {return quantityAlertMessage;}
 
     @FindBy(xpath = "//input[@value=\"Delete\"]")
     private WebElement deleteButton;
 
     @FindBy(xpath = "//*[contains(text(),\"Your Amazon Cart is empty\")]")
     private WebElement emptyCartMessage;
-    public WebElement getEmptyCartMessage(){return emptyCartMessage;}
 
+    @FindBy(xpath = "//input[@class=\"a-input-text a-width-small sc-quantity-textfield sc-update-quantity-input\"]")
+    private WebElement filledQuantityInputField;
+
+    @FindBy(xpath = "//span[@class=\"a-dropdown-prompt\"]")
+    private WebElement quantityBetweenOneAndNineButton;
+
+    public WebElement getQuantityBetweenOneAndNineButton() {return quantityBetweenOneAndNineButton;}
+    public WebElement getEmptyCartMessage(){return emptyCartMessage;}
+    public Integer amountOfProductsInCart(){return productsInCart.size();}
+    public WebElement getFilledQuantityInputField(){return filledQuantityInputField;}
+
+    public void enterQuantityOfProducts(String quantity) {quantityInputField.sendKeys(quantity);}
+
+    public void clickMoreThanTenDropdownListButton(){moreThanTenButton.click();}
+    public void clickUpdateButton() {updateButton.click();}
+    public void clickQuantityButton()
+    {
+        quantityButton.click();
+    }
     public void clickDeleteButton()
     {
         try {
             deleteButton.click();
         }
-        catch (NoSuchElementException noDeleteButtonOnThePage) {}
-
+        catch (NoSuchElementException ignored) {}
     }
+
     public Boolean isEmptyCartMessageIsVisible()
     {
         return emptyCartMessage.isDisplayed();
     }
 
-    public Boolean isAlertMessageIsVisible()
-    {
-        return quantityAlertMessage.isDisplayed();
-    }
 
     public Boolean isQuantityAllowedToPurchase(Integer quantity)
     {
         if (quantity < 0) {quantity *= -1;}
-        return quantity == parseInt(quantityInputField.getAttribute("value"));
+        return quantity == parseInt(filledQuantityInputField.getAttribute("value"));
     }
 
     public Boolean isQuantityChangedAccordinglyToAlertMessage()
@@ -84,10 +96,10 @@ public class CartPage extends BasePage
                 sellerAmountOfProducts += quantityAlertMessage.getText().toCharArray()[i];
             }
         }
-        return parseInt(quantityInputField.getAttribute("value")) == parseInt(sellerAmountOfProducts);
+        return parseInt(filledQuantityInputField.getAttribute("value")) == parseInt(sellerAmountOfProducts);
     }
 
-    public Boolean isTotalPriceIsChangedAccordinglyToQuantityOfProducts()
+    public Boolean isTotalPriceIsChangedAccordinglyToQuantityOfProducts(Integer quantity)
     {
         String price = "";
         for (int i = 0; i < priceOfOneProduct.getText().toCharArray().length; i++)
@@ -105,17 +117,20 @@ public class CartPage extends BasePage
                 totPrice += totalPrice.getText().toCharArray()[i];
             }
         }
-        return parseInt(totPrice) == parseInt(price) * parseInt(quantityInputField.getAttribute("value"));
+        if (quantity < -9 || quantity > 9)
+            return parseInt(totPrice) == parseInt(price) * parseInt(filledQuantityInputField.getAttribute("value"));
+        else
+            return parseInt(totPrice) == parseInt(price) * parseInt(quantityBetweenOneAndNineButton.getText());
     }
-    public void clickUpdateButton() {updateButton.click();}
 
-    public void enterQuantityOfProducts(String quantity) {quantityInputField.sendKeys(quantity);}
 
-    public void clickMoreThanTenDropdownListButton(){moreThanTenButton.click();}
 
-    public void clickQuantityButton()
+    /*
+        public Boolean isAlertMessageIsVisible()
     {
-        quantityButton.click();
+        return quantityAlertMessage.isDisplayed();
     }
-    public Integer amountOfProductsInCart(){return productsInCart.size();}
+        public WebElement getQuantityInputField(){return quantityInputField;}
+    public WebElement getQuantityAlertMessage() {return quantityAlertMessage;}
+     */
 }

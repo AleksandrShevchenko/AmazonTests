@@ -55,7 +55,7 @@ public class DefinitionSteps {
 
 
     @And("User logs in site as login: {string} password: {string}")
-    public void logInSiteAsLoginPassword(String login, String password){
+    public void logInSiteAsLoginPassword(String login, String password) {
         authorizationPage = pageFactoryManager.getAuthorizationPage();
         authorizationPage.enterLogin(login);
         authorizationPage.clickOnTheConfirmationButton();
@@ -71,7 +71,7 @@ public class DefinitionSteps {
     }
 
     @Then("User checks that user is authorized as {string} {string}")
-    public void checkThatUserIsAuthorized(String login, String password) throws InterruptedException {
+    public void checkThatUserIsAuthorized(String login, String password) {
         try {
             assertTrue(homePage.getGreetingsText().contains(login));
         } catch (NoSuchElementException noGreetingsTextException) {
@@ -94,9 +94,8 @@ public class DefinitionSteps {
     }
 
     @And("User clicks 'Computer' menu item")
-    public void clickComputerMenuItem()
-    {
-        homePage.waitForVisibilityOfElement(DEFAULT_TIMEOUT,homePage.getComputersButton());
+    public void clickComputerMenuItem() {
+        homePage.waitForVisibilityOfElement(DEFAULT_TIMEOUT, homePage.getComputersButton());
         homePage.clickOnComputersMenuItem();
     }
 
@@ -108,8 +107,7 @@ public class DefinitionSteps {
     }
 
     @And("User chooses {string} and click this sorting type dropdown list item")
-    public void clickOnChosenSortingType(String sortingType)
-    {
+    public void clickOnChosenSortingType(String sortingType) {
         if (sortingType.contains("asc"))
             productsPage.clickOnSortingFromLowToHighDropDownListItem();
         else if (sortingType.contains("desc"))
@@ -117,8 +115,7 @@ public class DefinitionSteps {
     }
 
     @And("User clicks 'Data storage' menu item")
-    public void clickOnDataStorageMenuItem()
-    {
+    public void clickOnDataStorageMenuItem() {
         homePage.waitForVisibilityOfElement(DEFAULT_TIMEOUT, homePage.getDataStorageButton());
         homePage.clickOnDataStorageMenuItem();
     }
@@ -127,8 +124,7 @@ public class DefinitionSteps {
     public void checkThatProductsAreSortedInProperWay(String sortingType) {
         if (sortingType.contains("asc")) {
             assertTrue(productsPage.isSortingWorksProperly("asc"));
-        }
-        else if (sortingType.contains("desc")) {
+        } else if (sortingType.contains("desc")) {
             assertTrue(productsPage.isSortingWorksProperly("desc"));
         }
     }
@@ -151,6 +147,7 @@ public class DefinitionSteps {
         productCardPage = pageFactoryManager.getProductCardPage();
         productCardPage.clickOnAddToCartButton();
     }
+
     @Then("User checks amount of products into the cart")
     public void checkAmountOfProductsIntoTheCart() {
         cartPage = pageFactoryManager.getCartPage();
@@ -194,8 +191,7 @@ public class DefinitionSteps {
 
 
     @When("User clicks on 'Add to list' button")
-    public void userClicksOnAddToListButton()
-    {
+    public void userClicksOnAddToListButton() {
         productCardPage = pageFactoryManager.getProductCardPage();
         productCardPage.waitForAjax(DEFAULT_TIMEOUT);
         try {
@@ -238,11 +234,9 @@ public class DefinitionSteps {
     }
 
 
-    @Then("User checks that information box about password changing is shown")
-    public void userChecksThatInformationBoxAboutPasswordChangingIsShown()
-    {
-        loginAndSecurityPage.waitForVisibilityOfElement(DEFAULT_TIMEOUT, loginAndSecurityPage.getEditPasswordInfoMessage());
-        assertTrue(loginAndSecurityPage.isInformationBoxShown());
+    @Then("User checks that information box about password changing is {string}")
+    public void userChecksThatInformationBoxAboutPasswordChangingIsShown(String expectedStatus) {
+        assertTrue(loginAndSecurityPage.isInformationBoxShown(expectedStatus));
     }
 
     @And("User clicks on 'Save changes' button")
@@ -266,8 +260,10 @@ public class DefinitionSteps {
     @When("User clicks on 'Delete' button")
     public void userClicksOnDeleteButton() {
         cartPage = pageFactoryManager.getCartPage();
-        try {cartPage.clickDeleteButton();}
-        catch(ElementNotInteractableException ignored){}
+        try {
+            cartPage.clickDeleteButton();
+        } catch (ElementNotInteractableException ignored) {
+        }
     }
 
     @Then("User checks that cart is empty")
@@ -377,8 +373,7 @@ public class DefinitionSteps {
     }
 
     @And("User clicks on 'Manage address book' button")
-    public void userClicksOnManageAddressBookButton()
-    {
+    public void userClicksOnManageAddressBookButton() {
         homePage.waitForVisibilityOfElement(DEFAULT_TIMEOUT, homePage.getManageAddressBookButton());
         homePage.clickManageAddressBookButton();
     }
@@ -389,8 +384,7 @@ public class DefinitionSteps {
     }
 
     @When("User clicks on 'Add account' button")
-    public void userClicksOnAddAccountButton()
-    {
+    public void userClicksOnAddAccountButton() {
         authorizationPage.waitForVisibilityOfElement(DEFAULT_TIMEOUT, authorizationPage.getAddAccountButton());
         authorizationPage.clickAddAccountButton();
     }
@@ -412,96 +406,98 @@ public class DefinitionSteps {
     }
 
     @And("User enters {string} to 'Quantity input field'")
-    public void userEntersToQuantityInputField(String amountOfProducts){
+    public void userEntersToQuantityInputField(String amountOfProducts) {
         cartPage.enterQuantityOfProducts(amountOfProducts);
     }
 
     @And("User clicks 'Update' button")
-    public void userClicksUpdateButton(){
+    public void userClicksUpdateButton() {
         cartPage = pageFactoryManager.getCartPage();
         cartPage.clickUpdateButton();
     }
 
     @Then("User checks that total price is changed accordingly to {int} or existence of error")
     public void checkTotalPriceOrExistenceOfError(Integer quantity) {
-        if (quantity == 0) {
-            assertTrue(true);
-        } else if (cartPage.isQuantityAllowedToPurchase(quantity))
-            assertTrue(cartPage.isTotalPriceIsChangedAccordinglyToQuantityOfProducts());
-        else
-            assertTrue(cartPage.isQuantityChangedAccordinglyToAlertMessage() && cartPage.isTotalPriceIsChangedAccordinglyToQuantityOfProducts());
+        if (quantity != 0) {
+            if (quantity > 9 || quantity < -9)
+                cartPage.waitForVisibilityOfElement(DEFAULT_TIMEOUT, cartPage.getFilledQuantityInputField());
+            else
+                cartPage.waitForVisibilityOfElement(DEFAULT_TIMEOUT, cartPage.getQuantityBetweenOneAndNineButton());
+            assertTrue(cartPage.isTotalPriceIsChangedAccordinglyToQuantityOfProducts(quantity));
+        }
     }
 
     @And("User checks that 'Add credit cart' button is visible")
     public void userChecksThatAddCreditCartButtonIsVisible() {
         shippingOptionsPage = pageFactoryManager.getShippingOptionsPage();
         shippingOptionsPage.waitForVisibilityOfElement(DEFAULT_TIMEOUT, shippingOptionsPage.getAddCreditCardButton());
-        shippingOptionsPage.isAddCreditCardButtonVisible();
+        assertTrue(shippingOptionsPage.isAddCreditCardButtonVisible());
     }
 
     @And("User checks that 'Enter a gift card, voucher or promotional code' link is visible")
     public void userChecksThatEnterAGiftCardVoucherOrPromotionalCodeLinkIsVisible() {
-        shippingOptionsPage.isEnterAGiftCardVoucherOrPromotionalCodeButtonVisible();
+        assertTrue(shippingOptionsPage.isEnterAGiftCardVoucherOrPromotionalCodeButtonVisible());
     }
 
     @And("User checks that 'Learn more' link in the 'Amazon store card' block is visible")
     public void userChecksThatLearnMoreLinkInTheAmazonStoreCardBlockIsVisible() {
-        shippingOptionsPage.isLearnMoreAboutAmazonStoreCardButtonVisible();
+        assertTrue(shippingOptionsPage.isLearnMoreAboutAmazonStoreCardButtonVisible());
     }
 
     @And("User checks that 'Add a personal checking account' button is visible")
     public void userChecksThatAddAPersonalCheckingAccountButtonIsVisible() {
         shippingOptionsPage = pageFactoryManager.getShippingOptionsPage();
-        shippingOptionsPage.isAddAPersonalCheckingAccountButtonVisible();
+        assertTrue(shippingOptionsPage.isAddAPersonalCheckingAccountButtonVisible());
     }
 
     @And("User checks that current page is 'Select a payment method' page")
     public void userChecksThatCurrentPageIsSelectAPaymentMethodPage() {
         shippingOptionsPage = pageFactoryManager.getShippingOptionsPage();
-        shippingOptionsPage.isPageTitleCorrect();
+        shippingOptionsPage.waitForVisibilityOfElement(DEFAULT_TIMEOUT, shippingOptionsPage.getPageHeader());
+        assertTrue(shippingOptionsPage.isPageTitleCorrect());
     }
 
     @And("User checks that product is external hard drive")
     public void userChecksThatProductIsExternalHardDrive() {
         productCardPage = pageFactoryManager.getProductCardPage();
         productCardPage.waitForPageLoad(DEFAULT_TIMEOUT);
-        productCardPage.isProductExternalHardDrive();
+        assertTrue(productCardPage.isProductExternalHardDrive());
     }
 
     @And("User checks that product has rate '4 stars' or higher")
     public void userChecksThatProductHasRateFourStarsOrHigher() {
         productCardPage = pageFactoryManager.getProductCardPage();
-        productCardPage.isProductsRateUpperThanFour();
+        assertTrue(productCardPage.isProductsRateUpperThanFour());
     }
 
     @And("User checks that product is manufactured by {string}")
     public void userChecksThatProductIsManufacturedByToshiba(String companyName) {
         productCardPage = pageFactoryManager.getProductCardPage();
-        productCardPage.isProductManufacturedByCompany(companyName);
+        assertTrue(productCardPage.isProductManufacturedByCompany(companyName));
     }
 
     @And("User checks that product's price is between '50$' and '100$'")
     public void userChecksThatProductSPriceIsBetweenFiftyAndHundredDollars() {
         productCardPage = pageFactoryManager.getProductCardPage();
-        productCardPage.isPriceBetweenFiftyAndHundredDollars();
+        assertTrue(productCardPage.isPriceBetweenFiftyAndHundredDollars());
     }
 
     @And("User checks that product is portable")
     public void userChecksThatProductIsPortable() {
         productCardPage = pageFactoryManager.getProductCardPage();
-        productCardPage.isProductPortable();
+        assertTrue(productCardPage.isProductPortable());
     }
 
     @And("User checks that product supports {string} platform")
     public void userChecksThatProductSupportsPCPlatform(String platformName) {
         productCardPage = pageFactoryManager.getProductCardPage();
-        productCardPage.isProductHardwarePlatform(platformName);
+        assertTrue(productCardPage.isProductHardwarePlatform(platformName));
     }
 
     @And("User checks that product's capacity is {int}TB or above")
     public void userChecksThatProductCapacityIsEqualOrAbove(int capacity) {
         productCardPage = pageFactoryManager.getProductCardPage();
-        productCardPage.isProductCapacityMoreOrEquals(capacity);
+        assertTrue(productCardPage.isProductCapacityMoreOrEquals(capacity));
     }
 
     @Then("User checks that product comparable with {string}")
@@ -513,38 +509,45 @@ public class DefinitionSteps {
     @And("User checks that name {string} was added to addressBook correctly")
     public void userChecksThatNameWasAddedToAddressBookCorrectly(String name) {
         shippingAddressPage = pageFactoryManager.getShippingAddressPage();
-        shippingAddressPage.waitForPageLoad(DEFAULT_TIMEOUT);
-        assertTrue(shippingAddressPage.isNameAddedToAddressBookCorrectly(name));
+        if (!shippingAddressPage.isAnyAlertVisible()) {
+            shippingAddressPage.waitForPageLoad(DEFAULT_TIMEOUT);
+            assertTrue(shippingAddressPage.isNameAddedToAddressBookCorrectly(name));
+        }
     }
 
     @And("User checks that street {string} was added to addressBook correctly")
     public void userChecksThatStreetWasAddedToAddressBookCorrectly(String street) {
         shippingAddressPage = pageFactoryManager.getShippingAddressPage();
-        assertTrue(shippingAddressPage.isAddressAddedToAddressBookCorrectly(street));
+        if (!shippingAddressPage.isAnyAlertVisible())
+            assertTrue(shippingAddressPage.isAddressAddedToAddressBookCorrectly(street));
     }
 
     @And("User checks that city {string} was added to addressBook correctly")
     public void userChecksThatCityWasAddedToAddressBookCorrectly(String city) {
         shippingAddressPage = pageFactoryManager.getShippingAddressPage();
-        assertTrue(shippingAddressPage.isCityAddedToAddressBookCorrectly(city));
+        if (!shippingAddressPage.isAnyAlertVisible())
+            assertTrue(shippingAddressPage.isCityAddedToAddressBookCorrectly(city));
     }
 
     @And("User checks that zipCode {string} was added to addressBook correctly")
     public void userChecksThatZipCodeWasAddedToAddressBookCorrectly(String zipCode) {
         shippingAddressPage = pageFactoryManager.getShippingAddressPage();
-        assertTrue(shippingAddressPage.isPostalCodeAddedToAddressBookCorrectly(zipCode));
+        if (!shippingAddressPage.isAnyAlertVisible())
+            assertTrue(shippingAddressPage.isPostalCodeAddedToAddressBookCorrectly(zipCode));
     }
 
     @Then("User checks that phone number {string} was added to addressBook correctly")
     public void userChecksThatPhoneNumberWasAddedToAddressBookCorrectly(String phoneNumber) {
         shippingAddressPage = pageFactoryManager.getShippingAddressPage();
-        assertTrue(shippingAddressPage.isPhoneNumberAddedToAddressBookCorrectly(phoneNumber));
+        if (!shippingAddressPage.isAnyAlertVisible())
+            assertTrue(shippingAddressPage.isPhoneNumberAddedToAddressBookCorrectly(phoneNumber));
     }
 
     @Then("User checks that country {string} was added to addressBook correctly")
     public void userChecksThatCountryWasAddedToAddressBookCorrectly(String country) {
         shippingAddressPage = pageFactoryManager.getShippingAddressPage();
-        assertTrue(shippingAddressPage.isCountryAddedToAddressBookCorrectly(country));
+        if (!shippingAddressPage.isAnyAlertVisible())
+         assertTrue(shippingAddressPage.isCountryAddedToAddressBookCorrectly(country));
     }
 
     @And("User clicks 'Watchlist' button")
@@ -560,34 +563,38 @@ public class DefinitionSteps {
     }
 
     @When("User enter {string} as 'Current password'")
-    public void userEnterAsCurrentPassword(String currentPassword)
-    {
+    public void userEnterAsCurrentPassword(String currentPassword) {
         loginAndSecurityPage.enterCurrentPassword(currentPassword);
     }
 
     @And("User enter {string} to 'Reenter new password' input field")
-    public void userEnterToReenterNewPasswordInputField(String newPassword)
-    {
+    public void userEnterToReenterNewPasswordInputField(String newPassword) {
         loginAndSecurityPage.reenterNewPassword(newPassword);
     }
 
     @And("User enter {string} to 'New password' input field")
-    public void userEnterToNewPasswordInputField(String newPassword)
-    {
+    public void userEnterToNewPasswordInputField(String newPassword) {
         loginAndSecurityPage.enterNewPassword(newPassword);
     }
 
     @And("User clicks 'Warranties&Services' menu item")
-    public void userClicksWarrantiesServicesMenuItem()
-    {
+    public void userClicksWarrantiesServicesMenuItem() {
         homePage.waitForVisibilityOfElement(DEFAULT_TIMEOUT, homePage.getWarrantiesAndServicesMenuItem());
         homePage.clickWarrantiesAndServicesMenuItem();
     }
 
     @And("User clicks on first 'Toshiba' product")
-    public void userClicksOnFirstToshibaProduct()
-    {
+    public void userClicksOnFirstToshibaProduct() {
         productsPage.waitForVisibilityOfElement(DEFAULT_TIMEOUT, productsPage.getFirstToshibaHardDrive());
         productsPage.clickFirstToshibaHardDrive();
+    }
+
+    @And("User checks that address is added to addressBook with {string}, {string}, {string}, {string} and {string}")
+    public void userChecksThatAddressIsAddedToAddressBookWithAnd(String name, String street, String city, String zipCode, String phoneNumber)
+    {
+        if (shippingAddressPage.isAnyAlertVisible())
+        {
+            assertTrue(shippingAddressPage.isProperlyErrorIsShown(name, street, city, zipCode,phoneNumber));
+        }
     }
 }

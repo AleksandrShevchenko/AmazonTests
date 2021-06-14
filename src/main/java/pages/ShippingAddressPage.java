@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class ShippingAddressPage extends  BasePage
 {
     public ShippingAddressPage(WebDriver driver) {
@@ -19,7 +21,6 @@ public class ShippingAddressPage extends  BasePage
 
     @FindBy(xpath = "//input[@name=\"address-ui-widgets-enterAddressFullName\"]")
     private WebElement fullNameInputField;
-    public WebElement getFullNameInputField() {return fullNameInputField;}
 
     @FindBy(xpath = "//input[@name=\"address-ui-widgets-enterAddressLine1\"]")
     private WebElement streetAddressInputField;
@@ -39,59 +40,14 @@ public class ShippingAddressPage extends  BasePage
     @FindBy(xpath = "//span[@id=\"address-ui-widgets-form-submit-button\"]//input[@type=\"submit\"]")
     private WebElement addNewAddressButton;
 
-    @FindBy(xpath = "//div[@class=\"a-box first-desktop-address-tile\"]")
+    @FindBy(xpath = "//a[@class=\"a-link-normal add-new-address-button\"]")
     private WebElement addAddressButton;
-
-    public void clickAddAddressButton() {addAddressButton.click();}
-    public void clickAddNewAddressButton(){addNewAddressButton.click();}
-
-    public void clickOnCountryRegionDropdownListButton()
-    {
-        countryRegionDropdownListButton.click();
-    }
-
-    public void clickOnUkraineItemIntoCountryRegionDropdownList()
-    {
-        ukraineItemIntoCountryRegionDropdownList.click();
-    }
-
-    public void enterFullName(String fullName)
-    {
-        fullNameInputField.sendKeys(fullName);
-    }
-
-    public void enterStreetAddress(String streetAddress)
-    {
-        streetAddressInputField.sendKeys(streetAddress);
-    }
-
-    public void enterCity(String city)
-    {
-        cityInputField.sendKeys(city);
-    }
-
-    public void enterZipCode(String zipCode)
-    {
-        zipCodeInputField.sendKeys(zipCode);
-    }
-
-    public void enterPhoneNumber(String phoneNumber)
-    {
-        phoneNumberInputField.sendKeys(phoneNumber);
-    }
-
-    public void clickOnUseThisAddressButton()
-    {
-        useThisAddressButton.click();
-    }
-
 
     @FindBy(xpath = "//div[@class=\"a-section address-section-no-default\"]//span[@class=\"a-list-item\"]//h5[@id=\"address-ui-widgets-FullName\"]")
     private WebElement fullNameCardText;
 
-
     @FindBy(xpath = "//div[@class=\"a-section address-section-no-default\"]//span[@class=\"a-list-item\"]//span[@id=\"address-ui-widgets-AddressLineOne\"]")
-private WebElement addressCardText;
+    private WebElement addressCardText;
 
     @FindBy(xpath = "//div[@class=\"a-section address-section-no-default\"]//span[@class=\"a-list-item\"]//span[@id=\"address-ui-widgets-CityStatePostalCode\"]")
     private WebElement cityPostalCodeCardText;
@@ -102,34 +58,104 @@ private WebElement addressCardText;
     @FindBy(xpath = "//div[@class=\"a-section address-section-no-default\"]//span[@class=\"a-list-item\"]//span[@id=\"address-ui-widgets-PhoneNumber\"]")
     private WebElement phoneNumberCardText;
 
+    @FindBy(xpath = "//div[contains(text(),\"Please enter a name.\")]")
+    private WebElement emptyNameFieldError;
+
+    @FindBy(xpath = "//div[contains(text(),\"Please enter an address.\")]")
+    private WebElement emptyStreetAddressFieldError;
+
+    @FindBy(xpath = "//div[@class=\"a-box a-alert-inline a-alert-inline-error\"]//div[contains(text(),\"Please enter a city name.\")]")
+    private WebElement emptyCityFieldError;
+
+    @FindBy(xpath = "//div[@class=\"a-box a-alert-inline a-alert-inline-error\"]//div[contains(text(),\"Please enter a ZIP or postal code.\")]")
+    private WebElement emptyZipCodeError;
+
+    @FindBy(xpath = "//div[contains(text(),\"Please enter a phone number so we can call if there are any issues with delivery.\")]")
+    private WebElement emptyPhoneNumberFieldError;
+
+    @FindBy(xpath = "//div[@class=\"a-box a-alert-inline a-alert-inline-warning\"]//div[contains(text(),\"Please enter a valid ZIP or postal code.\")]")
+    private WebElement invalidZipCodeFieldAlert;
+
+    @FindBy(xpath = "//div[contains(text(),\"Please provide a valid phone number\")]")
+    private WebElement invalidPhoneNumberError;
+
+    @FindBy(xpath = "//div[@class=\"a-box a-alert-inline a-alert-inline-error\"]//i[@class=\"a-icon a-icon-alert\"]")
+    private List<WebElement> alertIconsList;
+
+    public WebElement getFullNameInputField() {return fullNameInputField;}
+
+    public void clickAddAddressButton() {addAddressButton.click();}
+    public void clickAddNewAddressButton(){addNewAddressButton.click();}
+    public void clickOnCountryRegionDropdownListButton()
+    {
+        countryRegionDropdownListButton.click();
+    }
+    public void clickOnUkraineItemIntoCountryRegionDropdownList()
+    {
+        ukraineItemIntoCountryRegionDropdownList.click();
+    }
+    public void clickOnUseThisAddressButton()
+    {
+        useThisAddressButton.click();
+    }
+
+    public void enterFullName(String fullName)
+    {
+        fullNameInputField.sendKeys(fullName);
+    }
+    public void enterStreetAddress(String streetAddress)
+    {
+        streetAddressInputField.sendKeys(streetAddress);
+    }
+    public void enterCity(String city)
+    {
+        cityInputField.sendKeys(city);
+    }
+    public void enterZipCode(String zipCode)
+    {
+        zipCodeInputField.sendKeys(zipCode);
+    }
+    public void enterPhoneNumber(String phoneNumber)
+    {
+        phoneNumberInputField.sendKeys(phoneNumber);
+    }
+
     public Boolean isNameAddedToAddressBookCorrectly(String name)
     {
         return fullNameCardText.getText().contains(name);
     }
-
-    public Boolean isAddressAddedToAddressBookCorrectly(String address)
+    public Boolean isAddressAddedToAddressBookCorrectly(String address) { return addressCardText.getText().contains(address); }
+    public Boolean isCountryAddedToAddressBookCorrectly(String country) { return countryCardText.getText().contains(country); }
+    public Boolean isPostalCodeAddedToAddressBookCorrectly(String postCode) { return cityPostalCodeCardText.getText().contains(postCode); }
+    public Boolean isPhoneNumberAddedToAddressBookCorrectly(String phoneNumber) { return phoneNumberCardText.getText().contains(phoneNumber); }
+    public Boolean isCityAddedToAddressBookCorrectly(String city) { return cityPostalCodeCardText.getText().contains(city); }
+    public Boolean isAnyAlertVisible()
     {
-        return addressCardText.getText().contains(address);
-    }
-    public Boolean isCountryAddedToAddressBookCorrectly(String country)
-    {
-        return countryCardText.getText().contains(country);
-    }
-    public Boolean isPostalCodeAddedToAddressBookCorrectly(String postCode)
-    {
-        return cityPostalCodeCardText.getText().contains(postCode);
-    }
-
-    public Boolean isPhoneNumberAddedToAddressBookCorrectly(String phoneNumber)
-    {
-        return phoneNumberCardText.getText().contains(phoneNumber);
+        for (WebElement webElement:alertIconsList)
+        {
+            if (webElement.isDisplayed())
+                return true;
+        }
+        return false;
     }
 
-    public Boolean isCityAddedToAddressBookCorrectly(String city)
+    public Boolean isPhoneNumberValid(String phoneNumber)
     {
-        return cityPostalCodeCardText.getText().contains(city);
+        for (Character symbol:phoneNumber.toCharArray()) {
+            if (!Character.isDigit(symbol))
+                return false;
+        }
+        return true;
     }
 
-
-
+    public Boolean isProperlyErrorIsShown(String name, String street, String city, String zipCode, String phoneNumber)
+    {
+        if (name.isEmpty()) return emptyNameFieldError.isDisplayed();
+        else if (street.isEmpty()) return emptyStreetAddressFieldError.isDisplayed();
+        else if(city.isEmpty()) return emptyCityFieldError.isDisplayed();
+        else if (zipCode.isEmpty()) return emptyZipCodeError.isDisplayed();
+        else if (phoneNumber.isEmpty()) return emptyPhoneNumberFieldError.isDisplayed();
+        else if (!isPhoneNumberValid(phoneNumber)) return invalidPhoneNumberError.isDisplayed();
+        return false;
+    }
 }

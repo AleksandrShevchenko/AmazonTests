@@ -34,29 +34,71 @@ public class ProductsPage extends BasePage {
 
     @FindBy(xpath = "//div[@class=\"a-section aok-relative s-image-square-aspect\"]//img[contains(@alt,\"Toshiba\")]")
     private WebElement firstToshibaHardDrive;
-    public WebElement getFirstToshibaHardDrive() {return firstToshibaHardDrive;}
-
-    public void clickFirstToshibaHardDrive() {firstToshibaHardDrive.click();}
 
     @FindBy(xpath = "//span[@class=\"a-size-medium a-color-base a-text-normal\"]")
     private List<WebElement> productsList;
-    public WebElement getFirstProductFromProductsList() {return productsList.get(0);}
 
     @FindBy(xpath = "//span[@class=\"a-size-base-plus a-color-base a-text-normal\"]")
     private List<WebElement> productsBackupList;
 
+    @FindBy(xpath = "//ul[@class=\"a-unordered-list a-nostyle a-vertical a-spacing-medium\"]//span[contains(text(),'External Hard Drives')]")
+    private WebElement externalHardDrivesFilterButton;
+
+    @FindBy(xpath = "//span[contains(text(),\"PC\")][@class=\"a-size-base a-color-base\"]")
+    private WebElement pcPlatformSupportFilterCheckbox;
+
+    @FindBy(xpath = "//span[contains(text(),\"4 TB & Above\")][@class=\"a-size-base a-color-base\"]")
+    private WebElement hardDriveSizeMoreThan4TBFilterCheckbox;
+
+    @FindBy(xpath = "//span[contains(text(),\"Tablet\")][@class=\"a-size-base a-color-base\"]")
+    private WebElement tabletAsCompatibleDeviceFilterCheckbox;
+
+    @FindBy(xpath = "//i[@class=\"a-icon a-icon-star-medium a-star-medium-4\"]")
+    private WebElement averageCustomerReviewMoreThanFourStarsFilterCheckbox;
+
+    @FindBy(xpath = "//span[@class=\"a-size-base a-color-base\"][contains(text(),\"Toshiba\")]")
+    private WebElement toshibaBrandFilterCheckbox;
+
+    @FindBy(xpath = "//span[@class=\"a-size-base a-color-base\"][contains(text(),\"$50 to $100\")]")
+    private WebElement fromFiftyToHundredDollarsPriceFilterButton;
+
+    @FindBy(xpath = "//span[@class=\"a-size-base a-color-base\"][contains(text(),\"Portable\")]")
+    private WebElement portableHardDriveTypeFilterCheckbox;
+
+    public WebElement getFirstToshibaHardDrive() {return firstToshibaHardDrive;}
+    public WebElement getPCPlatformSupportFilterCheckbox(){return pcPlatformSupportFilterCheckbox;}
+    public WebElement getToshibaBrandFilterCheckbox() {return toshibaBrandFilterCheckbox;}
+    public WebElement getFromFiftyToHundredDollarsPriceFilterButton() {return fromFiftyToHundredDollarsPriceFilterButton;}
+    public WebElement getPortableHardDriveTypeFilterCheckbox() {return portableHardDriveTypeFilterCheckbox;}
+    public WebElement getHardDriveSizeMoreThan4TBFilterCheckbox() {return hardDriveSizeMoreThan4TBFilterCheckbox;}
+    public WebElement getTabletAsCompatibleDeviceFilterCheckbox() {return tabletAsCompatibleDeviceFilterCheckbox;}
+
+    public void clickPCPlatformSupportFilterCheckbox() { pcPlatformSupportFilterCheckbox.click(); }
+    public void clickHardDriveSizeMoreThan4TBFilterCheckbox() { hardDriveSizeMoreThan4TBFilterCheckbox.click(); }
     public void clickOnSortingDropDownListButton() {
         sortingDropDownListButton.click();
     }
-
     public void clickOnSortingFromLowToHighDropDownListItem() {
         sortingFromLowToHighDropDownListItem.click();
     }
-
     public void clickOnSortingFromHighToLowDropDownListItem() {
         sortingFromHighToLowDropDownListItem.click();
     }
+    public void clickFirstToshibaHardDrive() {firstToshibaHardDrive.click();}
+    public void clickOnTheFirstProductInList() {
+        try {
+            productsList.get(0).click();
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            productsBackupList.get(0).click();
+        }
 
+    }
+    public void clickExternalHardDrivesFilter() { externalHardDrivesFilterButton.click(); }
+    public void clickTabletAsCompatibleDeviceFilterCheckbox() { tabletAsCompatibleDeviceFilterCheckbox.click(); }
+    public void clickAverageCustomerReviewMoreThanFourStarsFilterCheckbox() { averageCustomerReviewMoreThanFourStarsFilterCheckbox.click(); }
+    public void clickToshibaBrandFilterCheckbox() { toshibaBrandFilterCheckbox.click(); }
+    public void clickFrom50To100DollarsPriceFilterButton() { fromFiftyToHundredDollarsPriceFilterButton.click(); }
+    public void clickPortableHardDriveTypeFilterCheckbox() { portableHardDriveTypeFilterCheckbox.click(); }
 
     public Boolean isSortingWorksProperly(String sortingType) {
         if (sortingType.contains("asc")) {
@@ -82,74 +124,8 @@ public class ProductsPage extends BasePage {
         return true;
     }
 
-    public void clickOnTheFirstProductInList() {
-        try {
-            productsList.get(0).click();
-        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-            productsBackupList.get(0).click();
-        }
 
-    }
+//    public WebElement getFirstProductFromProductsList() {return productsList.get(0);}
 
-    @FindBy(xpath = "//ul[@class=\"a-unordered-list a-nostyle a-vertical a-spacing-medium\"]//span[contains(text(),'External Hard Drives')]")
-    private WebElement externalHardDrivesFilterButton;
-
-    public void clickExternalHardDrivesFilter() {
-        externalHardDrivesFilterButton.click();
-    }
-
-    @FindBy(xpath = "//span[contains(text(),\"PC\")][@class=\"a-size-base a-color-base\"]")
-    private WebElement pcPlatformSupportFilterCheckbox;
-    public WebElement getPCPlatformSupportFilterCheckbox(){return pcPlatformSupportFilterCheckbox;}
-
-    public void clickPCPlatformSupportFilterCheckbox() {
-        pcPlatformSupportFilterCheckbox.click();
-    }
-
-    @FindBy(xpath = "//span[contains(text(),\"4 TB & Above\")][@class=\"a-size-base a-color-base\"]")
-    private WebElement hardDriveSizeMoreThan4TBFilterCheckbox;
-    public WebElement getHardDriveSizeMoreThan4TBFilterCheckbox() {return hardDriveSizeMoreThan4TBFilterCheckbox;}
-
-    public void clickHardDriveSizeMoreThan4TBFilterCheckbox() {
-        hardDriveSizeMoreThan4TBFilterCheckbox.click();
-    }
-
-    @FindBy(xpath = "//span[contains(text(),\"Tablet\")][@class=\"a-size-base a-color-base\"]")
-    private WebElement tabletAsCompatibleDeviceFilterCheckbox;
-    public WebElement getTabletAsCompatibleDeviceFilterCheckbox() {return tabletAsCompatibleDeviceFilterCheckbox;}
-
-    public void clickTabletAsCompatibleDeviceFilterCheckbox() {
-        tabletAsCompatibleDeviceFilterCheckbox.click();
-    }
-
-    @FindBy(xpath = "//i[@class=\"a-icon a-icon-star-medium a-star-medium-4\"]")
-    private WebElement averageCustomerReviewMoreThanFourStarsFilterCheckbox;
-
-    public void clickAverageCustomerReviewMoreThanFourStarsFilterCheckbox() {
-        averageCustomerReviewMoreThanFourStarsFilterCheckbox.click();
-    }
-
-    @FindBy(xpath = "//span[@class=\"a-size-base a-color-base\"][contains(text(),\"Toshiba\")]")
-    private WebElement toshibaBrandFilterCheckbox;
-    public WebElement getToshibaBrandFilterCheckbox() {return toshibaBrandFilterCheckbox;}
-
-    public void clickToshibaBrandFilterCheckbox() {
-        toshibaBrandFilterCheckbox.click();
-    }
-
-    @FindBy(xpath = "//span[@class=\"a-size-base a-color-base\"][contains(text(),\"$50 to $100\")]")
-    private WebElement fromFiftyToHundredDollarsPriceFilterButton;
-    public WebElement getFromFiftyToHundredDollarsPriceFilterButton() {return fromFiftyToHundredDollarsPriceFilterButton;}
-    public void clickFrom50To100DollarsPriceFilterButton() {
-        fromFiftyToHundredDollarsPriceFilterButton.click();
-    }
-
-    @FindBy(xpath = "//span[@class=\"a-size-base a-color-base\"][contains(text(),\"Portable\")]")
-    private WebElement portableHardDriveTypeFilterCheckbox;
-    public WebElement getPortableHardDriveTypeFilterCheckbox() {return portableHardDriveTypeFilterCheckbox;}
-
-    public void clickPortableHardDriveTypeFilterCheckbox() {
-        portableHardDriveTypeFilterCheckbox.click();
-    }
 
 }

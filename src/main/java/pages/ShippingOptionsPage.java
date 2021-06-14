@@ -8,55 +8,27 @@ import org.openqa.selenium.support.FindBy;
 
 public class ShippingOptionsPage extends BasePage {
 
+    public final String PAGE_TITLE = "Select a Payment Method - Amazon.com Checkout";
     public ShippingOptionsPage(WebDriver driver) {
         super(driver);
     }
+
     @FindBy(xpath = "//div[@class=\"a-row\"]//input[@class=\"a-button-text\"]")
     private WebElement continueButton;
 
-    public void clickOnTheContinueButton()
-    {
-        try {continueButton.click();}
-        catch (NoSuchElementException noContinueButton) {}
-
-    }
-
     @FindBy(xpath = "//span[contains(text(),\"Add a credit or debit card\")]")
     private WebElement addCreditCardButton;
-    public WebElement getAddCreditCardButton() {return addCreditCardButton;}
-
-    public Boolean isAddCreditCardButtonVisible()
-    {
-        return addCreditCardButton.isDisplayed();
-    }
-
-    @FindBy(xpath = "//span[contains(text(),\"Enter a gift card, voucher or promotional code\")]")
-    private WebElement enterAGiftCardVoucherOrPromotionalCodeLink;
-    public WebElement getEnterAGiftCardVoucherOrPromotionalCodeLink() {return enterAGiftCardVoucherOrPromotionalCodeLink;}
-
-    public Boolean isEnterAGiftCardVoucherOrPromotionalCodeButtonVisible()
-    {
-        return enterAGiftCardVoucherOrPromotionalCodeLink.isDisplayed();
-    }
 
     @FindBy(xpath = "//a[contains(text(),\"Learn more\")][contains(@href,\"cobrandcard\")]")
     private WebElement learnMoreAboutAmazonStoreCardLink;
-    public WebElement getLearnMoreAboutAmazonStoreCardLink() {return learnMoreAboutAmazonStoreCardLink;}
 
-    public Boolean isLearnMoreAboutAmazonStoreCardButtonVisible()
-    {
-        return learnMoreAboutAmazonStoreCardLink.isDisplayed();
-    }
+    @FindBy(xpath = "//span[contains(text(),\"Enter a gift card, voucher or promotional code\")]")
+    private WebElement enterAGiftCardVoucherOrPromotionalCodeLink;
 
     @FindBy(xpath = "//span[contains(text(),\"Add a personal checking account\")]")
     private WebElement addAPersonalCheckingAccountButton;
-    public WebElement getAddAPersonalCheckingAccountButton(){return addAPersonalCheckingAccountButton;}
 
-    public Boolean isAddAPersonalCheckingAccountButtonVisible()
-    {
-        return addAPersonalCheckingAccountButton.isDisplayed();
-    }
-@FindBy(xpath = "//div[contains(text(), \"Please enter a name\")]")
+    @FindBy(xpath = "//div[contains(text(), \"Please enter a name\")]")
     private WebElement emptyNameFieldErrorMessage;
 
     @FindBy(xpath = "//div[contains(text(), \"Please enter an address\")]")
@@ -77,9 +49,30 @@ public class ShippingOptionsPage extends BasePage {
     @FindBy(xpath = "//div[contains(text(), \"valid phone number\")]")
     private WebElement invalidPhoneNumberErrorMessage;
 
-    public final String PAGE_TITLE = "Select a Payment Method - Amazon.com Checkout";
-    public Boolean isPageTitleCorrect()
+    @FindBy(xpath = "//h1[contains(text(),\"Select a payment method\")]")
+    private WebElement pageHeader;
+    public WebElement getPageHeader() {return pageHeader;}
+
+    public void clickOnTheContinueButton()
     {
-        return driver.getTitle() == PAGE_TITLE;
+        try {continueButton.click();}
+        catch (NoSuchElementException ignored) {}
     }
+
+    public WebElement getAddCreditCardButton() {return addCreditCardButton;}
+
+    public Boolean isAddCreditCardButtonVisible()
+    {
+        return addCreditCardButton.isDisplayed();
+    }
+    public Boolean isLearnMoreAboutAmazonStoreCardButtonVisible() { return learnMoreAboutAmazonStoreCardLink.isDisplayed(); }
+    public Boolean isAddAPersonalCheckingAccountButtonVisible() { return addAPersonalCheckingAccountButton.isDisplayed(); }
+    public Boolean isEnterAGiftCardVoucherOrPromotionalCodeButtonVisible() { return enterAGiftCardVoucherOrPromotionalCodeLink.isDisplayed(); }
+    public Boolean isPageTitleCorrect() { return driver.getTitle().equals(PAGE_TITLE); }
+
+    /*
+        public WebElement getEnterAGiftCardVoucherOrPromotionalCodeLink() {return enterAGiftCardVoucherOrPromotionalCodeLink;}
+    public WebElement getAddAPersonalCheckingAccountButton(){return addAPersonalCheckingAccountButton;}
+    public WebElement getLearnMoreAboutAmazonStoreCardLink() {return learnMoreAboutAmazonStoreCardLink;}
+     */
 }

@@ -11,5 +11,4 @@ public class HomePage  extends BasePage
         driver.get(url);
     }
 
-
 }
