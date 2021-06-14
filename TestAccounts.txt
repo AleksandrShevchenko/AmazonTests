@@ -1,0 +1,12 @@
+Test accounts:
+Login				| Password |
+testAmazon1235@gmail.com        | qwerty   |
+amazonTestAcc1234@gmail.com     | qwerty   |
+
+
+Password to enter to emails: Qwerty123!
+
+
+
+
+
