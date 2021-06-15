@@ -1,0 +1,10 @@
+
+P
+java:S1191"5Use classes from the Java API instead of Sun classes.(™¦èûÿÿÿÿ
+i
+java:S1128"NRemove this unused import 'com.sun.org.apache.xpath.internal.operations.Bool'.(™¦èûÿÿÿÿ
+q	java:S116"URename this field "PAGE_TITLE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎÂì•8úöá /
+7
+java:S1170"!Make this final field static too.(ÎÂì•
+>	java:S108;")Either remove or fill this block of code.(ª”ÑÚ
+V	java:S125J"<This block of commented-out lines of code should be removed.(ñ‡ûþÿÿÿÿ

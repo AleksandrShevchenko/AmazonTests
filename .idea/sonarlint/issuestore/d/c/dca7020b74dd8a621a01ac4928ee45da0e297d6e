@@ -1,0 +1,12 @@
+
+W
+java:S1191"5Use classes from the Java API instead of Sun classes.(™¦èûÿÿÿÿ8ùÎ–İ /
+>
+java:S1643x"Use a StringBuilder instead.(Ø‘ÿšÿÿÿÿÿ8Ôäİ /
+?
+java:S1643‚"Use a StringBuilder instead.(”àîÚúÿÿÿÿ8…åİ /
+p
+java:S1128"NRemove this unused import 'com.sun.org.apache.xpath.internal.operations.Bool'.(™¦èûÿÿÿÿ8ˆÏ–İ /
+Y	java:S125–"<This block of commented-out lines of code should be removed.(’ùÜ8ıæİ /
+I
+java:S5960"+Remove this assertion from production code.(­Ì÷…8ÿæİ /
