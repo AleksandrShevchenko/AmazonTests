@@ -44,19 +44,19 @@ public class ShippingAddressPage extends  BasePage
     private WebElement addAddressButton;
 
     @FindBy(xpath = "//div[@class=\"a-section address-section-no-default\"]//span[@class=\"a-list-item\"]//h5[@id=\"address-ui-widgets-FullName\"]")
-    private WebElement fullNameCardText;
+    private List<WebElement> fullNameCardTextList;
 
     @FindBy(xpath = "//div[@class=\"a-section address-section-no-default\"]//span[@class=\"a-list-item\"]//span[@id=\"address-ui-widgets-AddressLineOne\"]")
-    private WebElement addressCardText;
+    private List<WebElement> addressCardTextList;
 
     @FindBy(xpath = "//div[@class=\"a-section address-section-no-default\"]//span[@class=\"a-list-item\"]//span[@id=\"address-ui-widgets-CityStatePostalCode\"]")
-    private WebElement cityPostalCodeCardText;
+    private List<WebElement> cityPostalCodeCardTextList;
 
     @FindBy(xpath = "//div[@class=\"a-section address-section-no-default\"]//span[@class=\"a-list-item\"]//span[@id=\"address-ui-widgets-Country\"]")
     private WebElement countryCardText;
 
     @FindBy(xpath = "//div[@class=\"a-section address-section-no-default\"]//span[@class=\"a-list-item\"]//span[@id=\"address-ui-widgets-PhoneNumber\"]")
-    private WebElement phoneNumberCardText;
+    private List<WebElement> phoneNumberCardTextList;
 
     @FindBy(xpath = "//div[contains(text(),\"Please enter a name.\")]")
     private WebElement emptyNameFieldError;
@@ -122,13 +122,21 @@ public class ShippingAddressPage extends  BasePage
 
     public Boolean isNameAddedToAddressBookCorrectly(String name)
     {
-        return fullNameCardText.getText().contains(name);
+        return fullNameCardTextList.get(fullNameCardTextList.size()-1).getText().contains(name);
     }
-    public Boolean isAddressAddedToAddressBookCorrectly(String address) { return addressCardText.getText().contains(address); }
+    public Boolean isAddressAddedToAddressBookCorrectly(String address) {
+        return addressCardTextList
+                .get(addressCardTextList.size()-1).getText().contains(address); }
     public Boolean isCountryAddedToAddressBookCorrectly(String country) { return countryCardText.getText().contains(country); }
-    public Boolean isPostalCodeAddedToAddressBookCorrectly(String postCode) { return cityPostalCodeCardText.getText().contains(postCode); }
-    public Boolean isPhoneNumberAddedToAddressBookCorrectly(String phoneNumber) { return phoneNumberCardText.getText().contains(phoneNumber); }
-    public Boolean isCityAddedToAddressBookCorrectly(String city) { return cityPostalCodeCardText.getText().contains(city); }
+    public Boolean isPostalCodeAddedToAddressBookCorrectly(String postCode) {
+        return cityPostalCodeCardTextList
+                .get(cityPostalCodeCardTextList.size()-1).getText().contains(postCode); }
+    public Boolean isPhoneNumberAddedToAddressBookCorrectly(String phoneNumber) {
+        return phoneNumberCardTextList
+                .get(phoneNumberCardTextList.size()-1).getText().contains(phoneNumber); }
+    public Boolean isCityAddedToAddressBookCorrectly(String city) {
+        return cityPostalCodeCardTextList
+                .get(cityPostalCodeCardTextList.size()-1).getText().contains(city); }
     public Boolean isAnyAlertVisible()
     {
         for (WebElement webElement:alertIconsList)

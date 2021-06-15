@@ -132,44 +132,4 @@ public class BasePage {
         new WebDriverWait(driver, timeToWait).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return window.jQuery != undefined && jQuery.active == 0;"));
     }
-
-       public void hoverOnSignInButton() {
-        moveMousePointerToElement(signInMenuButton);
-    }
-
-
-
-    public void ClickOnShoppingListItem(String listName) {
-        shoppingListItem.click();
-    }
-
-
-
-    public void clickOnWishListItemInSignInMenu() {
-        wishListItemInSignInMenu.click();
-    }
-
-
-
-    public void signOut() {
-        signInMenuSignOutButton.click();
-    }
-
-
-
-    public WebElement getGreetingsBlock() {
-        return greetingsText;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
 }

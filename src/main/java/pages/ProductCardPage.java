@@ -143,18 +143,4 @@ public class ProductCardPage extends BasePage
         else
             assertTrue(isEmptyWishlistNameAlertVisible());
     }
-
-
-
-/*
-    public WebElement getAddToListButton() {return addToListButton;}
-    public WebElement getViewListButton() {return viewListButton;}
-    public WebElement getShippingDelaysPopup() {return shippingDelaysPopup;}
-    public WebElement getCreateNewListPopup(){return createNewListPopup;}
-*/
-
-
-
-
-
 }

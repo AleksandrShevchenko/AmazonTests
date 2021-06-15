@@ -78,27 +78,6 @@ public class CartPage extends BasePage
         return emptyCartMessage.isDisplayed();
     }
 
-
-    public Boolean isQuantityAllowedToPurchase(Integer quantity)
-    {
-        if (quantity < 0) {quantity *= -1;}
-        return quantity == parseInt(filledQuantityInputField.getAttribute("value"));
-    }
-
-    public Boolean isQuantityChangedAccordinglyToAlertMessage()
-    {
-        waitForVisibilityOfElement(10,quantityAlertMessage);
-        String sellerAmountOfProducts = "";
-        for (int i = 0; i < quantityAlertMessage.getText().toCharArray().length; i++)
-        {
-            if (Character.isDigit(quantityAlertMessage.getText().toCharArray()[i]))
-            {
-                sellerAmountOfProducts += quantityAlertMessage.getText().toCharArray()[i];
-            }
-        }
-        return parseInt(filledQuantityInputField.getAttribute("value")) == parseInt(sellerAmountOfProducts);
-    }
-
     public Boolean isTotalPriceIsChangedAccordinglyToQuantityOfProducts(Integer quantity)
     {
         String price = "";
@@ -122,15 +101,4 @@ public class CartPage extends BasePage
         else
             return parseInt(totPrice) == parseInt(price) * parseInt(quantityBetweenOneAndNineButton.getText());
     }
-
-
-
-    /*
-        public Boolean isAlertMessageIsVisible()
-    {
-        return quantityAlertMessage.isDisplayed();
-    }
-        public WebElement getQuantityInputField(){return quantityInputField;}
-    public WebElement getQuantityAlertMessage() {return quantityAlertMessage;}
-     */
 }

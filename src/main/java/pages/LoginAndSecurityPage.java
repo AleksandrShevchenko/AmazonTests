@@ -57,12 +57,4 @@ public class LoginAndSecurityPage extends BasePage
         else
             return editPasswordInfoMessage.getText().contains("There was a problem");
     }
-
-    //    public void clickOnEditNameButton() {
-    //        editNameButton.click();
-    //    }
-    //public void enterNewName(String name) {
-    //    newNameInputField.clear();
-    //    newNameInputField.sendKeys(name);
-    //}
 }

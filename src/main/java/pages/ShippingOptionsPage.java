@@ -69,10 +69,4 @@ public class ShippingOptionsPage extends BasePage {
     public Boolean isAddAPersonalCheckingAccountButtonVisible() { return addAPersonalCheckingAccountButton.isDisplayed(); }
     public Boolean isEnterAGiftCardVoucherOrPromotionalCodeButtonVisible() { return enterAGiftCardVoucherOrPromotionalCodeLink.isDisplayed(); }
     public Boolean isPageTitleCorrect() { return driver.getTitle().equals(PAGE_TITLE); }
-
-    /*
-        public WebElement getEnterAGiftCardVoucherOrPromotionalCodeLink() {return enterAGiftCardVoucherOrPromotionalCodeLink;}
-    public WebElement getAddAPersonalCheckingAccountButton(){return addAPersonalCheckingAccountButton;}
-    public WebElement getLearnMoreAboutAmazonStoreCardLink() {return learnMoreAboutAmazonStoreCardLink;}
-     */
 }

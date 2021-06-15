@@ -123,9 +123,4 @@ public class ProductsPage extends BasePage {
         }
         return true;
     }
-
-
-//    public WebElement getFirstProductFromProductsList() {return productsList.get(0);}
-
-
 }
